@@ -1,5 +1,5 @@
 <?php
-
+var_dump($_ENV);
 $host = $_ENV['DB_HOST'];
 $user = $_ENV['DB_USER']; 
 $password = $_ENV['DB_PASS'];
@@ -14,6 +14,7 @@ if ($conn->connect_error) {
 }
 
 ?>
+
 
 
 
