@@ -1,12 +1,12 @@
 <?php
 
-$servername = $_ENV['DB_HOST'];
-$username = $_ENV['DB_USER'];
+$host = $_ENV['DB_HOST'];
+$user = $_ENV['DB_USER']; 
 $password = $_ENV['DB_PASS'];
 $database = $_ENV['DB_NAME'];
-$database_url = $_ENV['DATABASE_URL'];
+$port = $_ENV['DB_PORT'] ?? 5432;
 	
-$conn = new mysqli($servername, $username, $password, $database, $database_url);
+$conn = new mysqli($host, $user, $password, $database, $port);
 
 // Check connection
 if ($conn->connect_error) {
@@ -14,6 +14,7 @@ if ($conn->connect_error) {
 }
 
 ?>
+
 
 
 
