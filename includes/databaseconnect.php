@@ -1,6 +1,6 @@
 <?php
 
-$database_url = getenv('DATABASE_URL');
+$database_url = $_ENV['DATABASE_URL'] ?? $_SERVER['DATABASE_URL'] ?? getenv('DATABASE_URL');
 
 if (!$database_url) {
     die("DATABASE_URL is not set");
@@ -8,24 +8,19 @@ if (!$database_url) {
 
 $db = parse_url($database_url);
 
-$host = $db['host'];
-$port = $db['port'] ?? 5432;
-$user = $db['user'];
-$password = $db['pass'];
-$dbname = ltrim($db['path'], '/');
-
-$dsn = "pgsql:host=$host;port=$port;dbname=$dbname;sslmode=require";
+$dsn = sprintf(
+    "pgsql:host=%s;port=%s;dbname=%s;sslmode=require",
+    $db['host'],
+    $db['port'] ?? 5432,
+    ltrim($db['path'], '/')
+);
 
 try {
-    $conn = new PDO($dsn, $user, $password, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+    $conn = new PDO($dsn, $db['user'], $db['pass'], [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
     ]);
+    echo "Connected successfully";
 } catch (PDOException $e) {
     die("Connection failed: " . $e->getMessage());
 }
-
-?>
-
-
 
