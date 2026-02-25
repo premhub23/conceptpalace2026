@@ -1,14 +1,11 @@
-
 FROM php:8.2-apache
 
-# Install mysqli extension
-RUN docker-php-ext-install mysqli
+# Install PostgreSQL dependencies
+RUN apt-get update && apt-get install -y libpq-dev \
+    && docker-php-ext-install pdo pdo_pgsql mysqli \
+    && apt-get clean
 
-# Copy project files into Apache directory
+# Copy project files
 COPY . /var/www/html/
 
-# Expose port 80
 EXPOSE 80
-
-RUN apt-get update && apt-get install -y libpq-dev
-RUN docker-php-ext-install pdo_pgsql
