@@ -1,10 +1,10 @@
 <?php
-var_dump($_ENV);
-$host = $_ENV['DB_HOST'];
-$user = $_ENV['DB_USER']; 
-$password = $_ENV['DB_PASS'];
-$database = $_ENV['DB_NAME'];
-$port = $_ENV['DB_PORT'] ?? 5432;
+
+$host = getenv('DB_HOST');
+$user = getenv('DB_USER');
+$password = getenv('DB_PASS');
+$database = getenv('DB_NAME');
+$port = getenv('DB_PORT') ?: 5432;
 	
 $conn = new mysqli($host, $user, $password, $database, $port);
 
@@ -14,6 +14,7 @@ if ($conn->connect_error) {
 }
 
 ?>
+
 
 
 
