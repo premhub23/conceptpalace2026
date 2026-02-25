@@ -6,7 +6,7 @@ $password = $_ENV['DB_PASS'];
 $database = $_ENV['DB_NAME'];
 $database_url = $_ENV['DATABASE_URL'];
 	
-$conn = new mysqli($servername, $username, $password, $database);
+$conn = new mysqli($servername, $username, $password, $database, $database_url);
 
 // Check connection
 if ($conn->connect_error) {
@@ -14,5 +14,6 @@ if ($conn->connect_error) {
 }
 
 ?>
+
 
 
